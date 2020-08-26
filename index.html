@@ -4,10 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quizzer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    Hello world
+    <div class="topnav">
+        <div class="logo" >Quizzer</div>
+    </div>
+    <div id="start">
+        <div class="start">
+            <div class="heading" style="font-weight: normal;">
+                Ready for a 
+            </div>
+            <div class="heading" style="font-size: 55px;">
+                Challenge ?
+            </div>
+            <input placeholder="Name" id="nameinput" class="nameinput" type="text">
+            <div id="starterror" class="starterror">
+                
+            </div>
+            <button onclick="startclick();" id="startbtn" class="startbtn">
+                Start
+            </button>
+        </div>
+        <div class="vectorback">
+            <img src="./Images/backgroundart.png" alt="">
+        </div>
+    </div>
+    <div id="quiz" class="quiz">
+        <div class="qpallete">
+            <table style="position: relative;left: 12%;">
+                <tr>
+                    <td class="notattempted">1</td>
+                    <td class="notattempted">2</td>
+                </tr>
+                <tr>
+                    <td class="notattempted">3</td>
+                    <td class="notattempted">4</td>
+                </tr>
+                <tr>
+                    <td class="notattempted">5</td>
+                    <td class="notattempted">6</td>
+                </tr>
+                <tr>
+                    <td class="notattempted">7</td>
+                    <td class="notattempted">8</td>
+                </tr>
+                <tr>
+                    <td class="notattempted">9</td>
+                    <td class="notattempted">10</td>
+                </tr>
+            </table>
+            <div style="margin-top: 30px;">
+                <div style="margin: 10px" >
+                    <div style="display: inline-block;margin-right: 10px; width: 30px;height: 30px;background-color: white ;color: black ;border:1px solid lightgray ;">
+
+                    </div>
+                    <div style="position: relative;top: -3px; display: inline-block;font-size: small; width: 120px;">
+                        Means the question has not been answered
+                    </div>
+                </div>
+                <div style="margin: 10px" >
+                    <div style="display: inline-block;margin-right: 10px; width: 30px;height: 30px;background-color: green ;color: white;border: none;">
+
+                    </div>
+                    <div style="position: relative;top: 4px; display: inline-block;font-size: small; width: 120px;">
+                        Means the question has been answered correctly
+                    </div>
+                </div>
+                <div style="margin: 10px" >
+                    <div style="display: inline-block;margin-right: 10px; width: 30px;height: 30px;background-color: red ;color: white ;border:none ;">
+
+                    </div>
+                    <div style="position: relative;top: 4px; display: inline-block;font-size: small; width: 120px;">
+                        Means the question has been answered incorrectly
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="movbtn fa fa-angle-left" style="margin-left: 80px;">
+        </button>
+        <div class="questionbox">
+            <div></div>
+        </div>
+        <button class="movbtn fa fa-angle-right">
+    </div>
+    
     <script src="work.js"></script>
 </body>
 </html>
