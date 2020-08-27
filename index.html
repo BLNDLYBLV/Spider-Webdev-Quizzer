@@ -11,6 +11,7 @@
 <body>
     <div class="topnav">
         <div class="logo" >Quizzer</div>
+        <button onclick="location.reload();" style="float:right; border: none;background-color: white;font-size: 17px;position: relative;top: 18px;margin-right: 100px; padding: 7px 10px;border-radius: 7px;">Home</button>
     </div>
     <div id="start">
         <div class="start">
@@ -20,10 +21,11 @@
             <div class="heading" style="font-size: 55px;">
                 Challenge ?
             </div>
-            <input placeholder="Name" id="nameinput" class="nameinput" type="text">
-            <div id="starterror" class="starterror">
-                
-            </div>
+            <form onsubmit="startclick();return false">
+            <input autocomplete="off" placeholder="Name" id="nameinput" class="nameinput" type="text">
+            <input type="submit" value="" style="display: none;">
+            <div id="starterror" class="starterror"></div>
+            </form>
             <button onclick="startclick();" id="startbtn" class="startbtn">
                 Start
             </button>
@@ -36,24 +38,24 @@
         <div class="qpallete">
             <table style="position: relative;left: 12%;">
                 <tr>
-                    <td class="notattempted">1</td>
-                    <td class="notattempted">2</td>
+                    <td id="td1" onclick="bringq(1)" class="notattempted">1</td>
+                    <td id="td2" onclick="bringq(2)" class="notattempted">2</td>
                 </tr>
                 <tr>
-                    <td class="notattempted">3</td>
-                    <td class="notattempted">4</td>
+                    <td id="td3" onclick="bringq(3)" class="notattempted">3</td>
+                    <td id="td4" onclick="bringq(4)" class="notattempted">4</td>
                 </tr>
                 <tr>
-                    <td class="notattempted">5</td>
-                    <td class="notattempted">6</td>
+                    <td id="td5" onclick="bringq(5)" class="notattempted">5</td>
+                    <td id="td6" onclick="bringq(6)" class="notattempted">6</td>
                 </tr>
                 <tr>
-                    <td class="notattempted">7</td>
-                    <td class="notattempted">8</td>
+                    <td id="td7" onclick="bringq(7)" class="notattempted">7</td>
+                    <td id="td8" onclick="bringq(8)" class="notattempted">8</td>
                 </tr>
                 <tr>
-                    <td class="notattempted">9</td>
-                    <td class="notattempted">10</td>
+                    <td id="td9" onclick="bringq(9)" class="notattempted">9</td>
+                    <td id="td10" onclick="bringq(10)" class="notattempted">10</td>
                 </tr>
             </table>
             <div style="margin-top: 30px;">
@@ -66,7 +68,7 @@
                     </div>
                 </div>
                 <div style="margin: 10px" >
-                    <div style="display: inline-block;margin-right: 10px; width: 30px;height: 30px;background-color: green ;color: white;border: none;">
+                    <div style="display: inline-block;margin-right: 10px; width: 30px;height: 30px;background-color: rgba(70,200,50,0.8) ;color: white;border: none;">
 
                     </div>
                     <div style="position: relative;top: 4px; display: inline-block;font-size: small; width: 120px;">
@@ -74,7 +76,7 @@
                     </div>
                 </div>
                 <div style="margin: 10px" >
-                    <div style="display: inline-block;margin-right: 10px; width: 30px;height: 30px;background-color: red ;color: white ;border:none ;">
+                    <div style="display: inline-block;margin-right: 10px; width: 30px;height: 30px;background-color: rgba(230,40,60,0.8);color: white ;border:none ;">
 
                     </div>
                     <div style="position: relative;top: 4px; display: inline-block;font-size: small; width: 120px;">
@@ -83,14 +85,75 @@
                 </div>
             </div>
         </div>
-        <button class="movbtn fa fa-angle-left" style="margin-left: 80px;">
+        <button onclick="moveleft();" class="movbtn fa fa-angle-left" style="margin-left: 50px;">
         </button>
         <div class="questionbox">
-            <div></div>
+            <div id="question" class="question">
+                1.  In a study, which cells are found in COVID-19 patients 'bode well' for long term immunity?
+            </div>
+            <div class="optionbox">
+                <div class="option" >
+                    <input id="opt1" onclick="optclick(1)" class="checkbox"  id="opt1" type="checkbox">
+                    <div class="opttext" style="margin-right: 20px;">A -</div>
+                    <div id="opttext1" class="opttext"> P Cell</div>
+                </div>
+                <div class="option" >
+                    <input id="opt2" onclick="optclick(2)" class="checkbox"  id="opt1" type="checkbox">
+                    <div class="opttext" style="margin-right: 20px;">B -</div>
+                    <div id="opttext2" class="opttext"> Q Cell</div>
+                </div>
+                <div class="option" >
+                    <input id="opt3" onclick="optclick(3)" class="checkbox"  id="opt1" type="checkbox">
+                    <div class="opttext" style="margin-right: 20px;">C -</div>
+                    <div id="opttext3" class="opttext"> R Cell</div>
+                </div>
+                <div class="option" >
+                    <input id="opt4" onclick="optclick(4)" class="checkbox"  id="opt1" type="checkbox">
+                    <div class="opttext" style="margin-right: 20px;">D -</div>
+                    <div id="opttext4" class="opttext"> S Cell</div>
+                </div>
+            </div>
+            <div>
+                <button onclick="confirmcurrent()" class="confirmbtn">
+                    Confirm
+                </button>
+            </div>
         </div>
-        <button class="movbtn fa fa-angle-right">
+        <button onclick="moveright()" class="movbtn fa fa-angle-right"></button>
+        <div class="submitbox">
+            <div style="text-align: center;margin-bottom: 15px;">
+                Submitting will end the quiz
+            </div>
+            <button onclick="submitmodalon()" class="submitbtn">
+                Submit
+            </button>
+            <div id="submitmodal" class="submitmodal">
+                <div class="actualmodal">
+                    <div style="padding: 30px;">Are you sure you want to submit the quiz</div>
+                    <hr>
+                    <div style="margin-top: 15px;padding-bottom: 10px; border-bottom: 1px solid lightgrey;" onclick="submit()">Yes</div>
+                    <div style="margin-top: 15px;" onclick="submitmodalclose()">No</div>
+                </div>
+            </div>
+        </div>
+        <div class="timerbox">
+            <div style="margin-bottom: 7px;">
+                Time
+            </div>
+            <div id="time">
+                5:00
+            </div>
+        </div>
     </div>
-    
+    <div id="result" style="display: none;">
+        <div class="yourscore">
+            <span id="scorename" >Your score:</span>
+            <span style="font-family: 'Roboto Condensed', sans-serif;margin-left: 15px;" id="myscore" ></span>
+        </div>
+        <div class="highscore">
+            asdghadg
+        </div>
+    </div>
     <script src="work.js"></script>
 </body>
 </html>
