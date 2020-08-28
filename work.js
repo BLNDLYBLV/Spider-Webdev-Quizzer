@@ -10,8 +10,21 @@ var opttext2=document.getElementById('opttext2');
 var opttext3=document.getElementById('opttext3');
 var opttext4=document.getElementById('opttext4');
 var time=document.getElementById('time');
+var today= new Date();
 var correct=0,wrong=0;
 var timer;
+var hsname1=document.getElementById('hsname1')
+var hsname2=document.getElementById('hsname2')
+var hsname3=document.getElementById('hsname3')
+var hsscore1=document.getElementById('hsscore1')
+var hsscore2=document.getElementById('hsscore2')
+var hsscore3=document.getElementById('hsscore3')
+var hsdate1=document.getElementById('hsdate1')
+var hsdate2=document.getElementById('hsdate2')
+var hsdate3=document.getElementById('hsdate3')
+var hstime1=document.getElementById('hstime1')
+var hstime2=document.getElementById('hstime2')
+var hstime3=document.getElementById('hstime3')
 
 nameinput.value='';
 
@@ -24,7 +37,7 @@ var currentopt;
 var questions=[];
 var model;
 var m='5',s='00',time;
-
+var ls=localStorage;
 
 function shuffle(array) {
     array.sort(() => Math.random() - 0.5);
@@ -285,15 +298,19 @@ function confirmcurrent(){
     var td=document.getElementById('td'+currentq);
     console.log(chosenopt.parentElement,origopt.parentElement);
     if(chosenans==currentans){
+        correctmodalon();
         chosenopt.parentElement.classList.add('correctoption');
         td.classList.add('greenattempted');
+        setTimeout(correctmodalclose,2500);
         // correct++;
     }
     else{
+        wrongmodalon();
         chosenopt.parentElement.classList.add('wrongoption');
         origopt.parentElement.classList.add('realoption');
         td.classList.add('redattempted');
         // wrong++;
+        setTimeout(wrongmodalclose,2500);
     }
     questions[currentq-1].chosenans=chosenans;
 }
@@ -303,6 +320,7 @@ function bringq(q){
 }
 function stopwatch(){
     console.log('jang');
+
     if(Number(s)==0){
         s='60';
         m=String(Number(m)-1);
@@ -313,6 +331,9 @@ function stopwatch(){
         s=String(Number(s)-1);
     }
     time.innerHTML=m+':'+s;
+    if(Number(m)==0 && Number(s)==0){
+        submit();
+    }
 
     // window.setInterval(stopwatch(),1000);
 }
@@ -322,6 +343,8 @@ function submit(){
     result.style.display='block';
     var score=document.getElementById('myscore');
     var scorename=document.getElementById('scorename');
+    var date;
+    var hstime;
     questions.forEach(q=>{
         if(q.chosenans!=undefined){
             if(q.chosenans==q.qans){
@@ -334,12 +357,142 @@ function submit(){
     });
     clearInterval(timer);
     var scoretime=Number(time.innerHTML[0])*60+Number(time.innerHTML[2])*10+Number(time.innerHTML[3])
+    var  highscorebox=document.getElementById('highscorebox')
     scoretime*=3;
     scoretime+=(correct*200-wrong*30);
     score.innerHTML=scoretime;
     scorename.innerHTML=currentUser+"'s score:";
+    console.log(scorename.style.width);
+    highscorebox.style.width=scorename.style.width;
+    if(ls.getItem('hsscore1')=='null' || Number(ls.getItem('hsscore1'))<Number(scoretime)){
+        date=today.getDate()+'/'+today.getMonth();
+        hstime=today.getHours()+':'+today.getMinutes();
+        ls.setItem('hsname3',ls.getItem('hsname2'));
+        ls.setItem('hsscore3',ls.getItem('hsscore2'));
+        ls.setItem('hstime3',ls.getItem('hstime2'));
+        ls.setItem('hsdate3',ls.getItem('hsdate2'));
+        ls.setItem('hsname2',ls.getItem('hsname1'));
+        ls.setItem('hsscore2',ls.getItem('hsscore1'));
+        ls.setItem('hstime2',ls.getItem('hstime1'));
+        ls.setItem('hsdate2',ls.getItem('hsdate1'));
+        ls.setItem('hsname1',currentUser);
+        ls.setItem('hsscore1',scoretime);
+        ls.setItem('hstime1',hstime);
+        ls.setItem('hsdate1',date);
+        console.log("hs1 updated");
+    }
+    else{
+        if(ls.getItem('hsscore2')=='null' || Number(ls.getItem('hsscore2'))<Number(scoretime)){
+            date=today.getDate()+'/'+today.getMonth();
+            hstime=today.getHours()+':'+today.getMinutes();
+            ls.setItem('hsname3',ls.getItem('hsname2'));
+            ls.setItem('hsscore3',ls.getItem('hsscore2'));
+            ls.setItem('hstime3',ls.getItem('hstime2'));
+            ls.setItem('hsdate3',ls.getItem('hsdate2'));
+            ls.setItem('hsname2',currentUser);
+            ls.setItem('hsscore2',scoretime);
+            ls.setItem('hstime2',hstime);
+            ls.setItem('hsdate2',date);
+            console.log("hs2 updated");
+        } 
+        else{
+            if(ls.getItem('hsscore3')=='null' || Number(ls.getItem('hsscore3'))<Number(scoretime)){
+                date=today.getDate()+'/'+today.getMonth();
+                hstime=today.getHours()+':'+today.getMinutes();
+                ls.setItem('hsname3',currentUser);
+                ls.setItem('hsscore3',scoretime);
+                ls.setItem('hstime3',hstime);
+                ls.setItem('hsdate3',date);
+                console.log("hs3 updated");
+            }
+        }
+    }
+    if(ls.getItem('hsname1')!='null'){
+        hsname1.innerHTML=ls.getItem('hsname1');
+    }
+    else{
+        hsname1.innerHTML=ls.getItem('hsname1');
+        hsname1.style.color='white'
+    }
+    if(ls.getItem('hsname2')!='null'){
+        hsname2.innerHTML=ls.getItem('hsname2');
+    }
+    else{
+        hsname2.innerHTML=ls.getItem('hsname2');
+        hsname2.style.color='white'
+    }
+    if(ls.getItem('hsname3')!='null'){
+        hsname3.innerHTML=ls.getItem('hsname3');
+    }
+    else{
+        hsname3.innerHTML=ls.getItem('hsname3');
+        hsname3.style.color='white'
+    }
+    if(ls.getItem('hsscore1')!='null'){
+        hsscore1.innerHTML=ls.getItem('hsscore1');
+    }
+    else{
+        hsscore1.innerHTML=ls.getItem('hsscore1');
+        hsscore1.style.color='white'
+    }
+    if(ls.getItem('hsscore2')!='null'){
+        hsscore2.innerHTML=ls.getItem('hsscore2');
+    }
+    else{
+        hsscore2.innerHTML=ls.getItem('hsscore2');
+        hsscore2.style.color='white'
+    }
+    if(ls.getItem('hsscore3')!='null'){
+        hsscore3.innerHTML=ls.getItem('hsscore3');
+    }
+    else{
+        hsscore3.innerHTML=ls.getItem('hsscore3');
+        hsscore3.style.color='white'
+    }
+    if(ls.getItem('hstime1')!='null'){
+        hstime1.innerHTML=ls.getItem('hstime1');
+    }
+    else{
+        hstime1.innerHTML=ls.getItem('hstime1');
+        hstime1.style.color='white'
+    }
+    if(ls.getItem('hstime2')!='null'){
+        hstime2.innerHTML=ls.getItem('hstime2');
+    }
+    else{
+        hstime2.innerHTML=ls.getItem('hstime2');
+        hstime2.style.color='white'
+    }
+    if(ls.getItem('hstime3')!='null'){
+        hstime3.innerHTML=ls.getItem('hstime3');
+    }
+    else{
+        hstime3.innerHTML=ls.getItem('hstime3');
+        hstime3.style.color='white'
+    }
+    if(ls.getItem('hsdate1')!='null'){
+        hsdate1.innerHTML=ls.getItem('hsdate1');
+    }
+    else{
+        hsdate1.innerHTML=ls.getItem('hsdate1');
+        hsdate1.style.color='white'
+    }
+    if(ls.getItem('hsdate2')!='null'){
+        hsdate2.innerHTML=ls.getItem('hsdate2');
+    }
+    else{
+        hsdate2.innerHTML=ls.getItem('hsdate2');
+        hsdate2.style.color='white'
+    }
+    if(ls.getItem('hsdate3')!='null'){
+        hsdate3.innerHTML=ls.getItem('hsdate3');
+    }
+    else{
+        hsdate3.innerHTML=ls.getItem('hsdate3');
+        hsdate3.style.color='white'
+    }
     // mytime.innerHTML='Correct:'+correct+'  Wrong:'+wrong+' time:'+time.innerHTML;
-}
+}  
 
 function submitmodalon(){
     // console.log('ojandf');
@@ -351,10 +504,36 @@ function submitmodalclose(){
     var modal=document.getElementById('submitmodal');
     modal.style.display='none';
 }
+function correctmodalon(){
+    // console.log('ojandf');
+    var modal=document.getElementById('correctmodal');
+    modal.style.display='block';
+    console.log(modal);
+}
+function correctmodalclose(){
+    var modal=document.getElementById('correctmodal');
+    modal.style.display='none';
+}
+function wrongmodalon(){
+    // console.log('ojandf');
+    var modal=document.getElementById('wrongmodal');
+    modal.style.display='block';
+    console.log(modal);
+}
+function wrongmodalclose(){
+    var modal=document.getElementById('wrongmodal');
+    modal.style.display='none';
+}
 
 window.addEventListener('click',(e)=>{
     if(e.target.id=='submitmodal'){
         submitmodalclose();    
+    }
+    if(e.target.id=='correctmodal'){
+        correctmodalclose();    
+    }
+    if(e.target.id=='wrongmodal'){
+        wrongmodalclose();    
     }
 })
 

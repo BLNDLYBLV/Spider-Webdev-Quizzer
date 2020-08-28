@@ -114,6 +114,9 @@
                 </div>
             </div>
             <div>
+                <button onclick="moveright();" class="nextbtn">
+                    Next
+                </button>
                 <button onclick="confirmcurrent()" class="confirmbtn">
                     Confirm
                 </button>
@@ -145,13 +148,92 @@
             </div>
         </div>
     </div>
-    <div id="result" style="display: none;">
+    <div id="result" class="result" >
         <div class="yourscore">
             <span id="scorename" >Your score:</span>
             <span style="font-family: 'Roboto Condensed', sans-serif;margin-left: 15px;" id="myscore" ></span>
         </div>
-        <div class="highscore">
-            asdghadg
+        <div id="highscorebox" >
+            <div class="topscoretxt">Top scorers</div>
+            <div class="numbers">
+                <div class="highscoretxt">
+                    1.
+                </div>
+                <div class="highscoretxt">
+                    2.
+                </div>
+                <div class="highscoretxt">
+                    3.
+                </div>
+            </div>
+            <div class="highscore" style="display: inline-block;">
+                <div class="highscoretxt">
+                    Name
+                </div>
+                <div id="hsname1" class="highscoretxt">
+                
+                </div>
+                <div id="hsname2" class="highscoretxt">
+                
+                </div>
+                <div id="hsname3" class="highscoretxt">
+
+                </div>
+            </div>
+            <div style="margin-left: 20px;display: inline-block;">
+                <div  class="highscoretxt">
+                    Score
+                </div>
+                <div id="hsscore1" class="highscorescore">
+                    
+                </div>
+                <div id="hsscore2" class="highscorescore">
+                    
+                </div>
+                <div id="hsscore3" class="highscorescore">
+                    
+                </div>
+            </div>
+            <div style="margin-left: 50px; display: inline-block;">
+                <div  class="highscoretxt">
+                    Date
+                </div>
+                <div id="hsdate1" class="highscorescore">
+                    
+                </div>
+                <div id="hsdate2" class="highscorescore">
+                    
+                </div>
+                <div id="hsdate3" class="highscorescore">
+                    
+                </div>
+            </div>
+            <div style="margin-left: 20px;margin-right: 30px; display: inline-block;">
+                <div class="highscoretxt">
+                    Time
+                </div>
+                <div id="hstime1" class="highscorescore">
+                    
+                </div>
+                <div id="hstime2" class="highscorescore">
+                    
+                </div>
+                <div id="hstime3" class="highscorescore">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="correctmodal" class="submitmodal">
+        <div class="actualmodal" style="width: 300px;margin-left: -150px; height: 260px;color: rgba(70,200,50,0.8);">
+            <span class="fa fa-star" style="margin-top: 15px; font-size: 140px;position: relative;top: 20px;"></span>
+            <div style="font-weight: bold; margin-top: 50px;font-size: 30px;">Correct</div>
+        </div>
+    </div>
+    <div id="wrongmodal" class="submitmodal">
+        <div class="actualmodal" style="width: 300px;margin-left: -150px; height: 260px;color: rgba(230,30,30,0.8);">
+            <span class="fa fa-times" style="margin-top: 15px; font-size: 140px;position: relative;top: 25px;"></span>
+            <div style="font-weight: bold; margin-top: 40px;font-size: 30px;">Wrong</div>
         </div>
     </div>
     <script src="work.js"></script>
